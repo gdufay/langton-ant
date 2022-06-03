@@ -77,9 +77,8 @@ To get a local copy up and running follow these simple example steps.
 ## Usage
 
 ```sh
-g++ -c main.cpp
-g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
-./sfml-app
+make
+./langton-ant
 ```
 
 
