@@ -1,63 +1,83 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class Grid
+class Grid : public sf::Drawable, public sf::Transformable
 {
 public:
-    Grid(unsigned int size, unsigned int cell_size) : _grid(size, std::vector<bool>(size, false)), _cell_size(cell_size) {}
+    Grid(unsigned int width, unsigned int height, sf::Vector2u cellSize);
 
-    // draw the grid
-    void draw(sf::RenderWindow &window) const;
-    // toggle cell color at position (x,y)
-    void toggle(unsigned int x, unsigned int y);
+    // toggle cell color at position (i,j)
+    void toggle(unsigned int i, unsigned int j);
     // get color of the cell
-    bool getColor(unsigned int x, unsigned int y) const;
+    sf::Color getColor(unsigned int i, unsigned int j) const;
 
-protected:
-    std::vector<std::vector<bool>> _grid;
-    unsigned int _cell_size;
+private:
+    // draw the grid
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+    sf::VertexArray _cells;
+    unsigned int _width;
+    unsigned int _height;
 };
 
-void Grid::draw(sf::RenderWindow &window) const
+Grid::Grid(unsigned int width, unsigned int height, sf::Vector2u cellSize)
 {
-    sf::RectangleShape rec(sf::Vector2f(_cell_size, _cell_size));
+    _cells.setPrimitiveType(sf::Quads);
+    _cells.resize(width * height * 4);
 
-    rec.setFillColor(sf::Color::Black);
-    for (std::size_t i = 0; i < _grid.size(); ++i)
-    {
-        for (std::size_t j = 0; j < _grid[i].size(); ++j)
+    for (unsigned int i = 0; i < width; ++i)
+        for (unsigned int j = 0; j < height; ++j)
         {
-            if (_grid[i][j])
-            {
-                rec.setPosition(i * _cell_size, j * _cell_size);
-                window.draw(rec);
-            }
+            sf::Vertex *quad = &_cells[(i + j * width) * 4];
+
+            quad[0].position = sf::Vector2f(i * cellSize.x, j * cellSize.y);
+            quad[1].position = sf::Vector2f((i + 1) * cellSize.x, j * cellSize.y);
+            quad[2].position = sf::Vector2f((i + 1) * cellSize.x, (j + 1) * cellSize.y);
+            quad[3].position = sf::Vector2f(i * cellSize.x, (j + 1) * cellSize.y);
         }
-    }
+
+    _width = width;
+    _height = height;
 }
 
-void Grid::toggle(unsigned int x, unsigned int y)
+void Grid::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    _grid[x][y] = !_grid[x][y];
+    states.transform *= getTransform();
+
+    states.texture = NULL;
+
+    target.draw(_cells, states);
 }
 
-bool Grid::getColor(unsigned int x, unsigned int y) const
+void Grid::toggle(unsigned int i, unsigned int j)
 {
-    return _grid[x][y];
+    sf::Vertex *quad = &_cells[(i + j * _width) * 4];
+    sf::Color new_color =
+        quad[0].color == sf::Color::White ? sf::Color::Black : sf::Color::White;
+
+    for (unsigned int i = 0; i < 4; ++i)
+        quad[i].color = new_color;
+}
+
+sf::Color Grid::getColor(unsigned int i, unsigned int j) const
+{
+    return _cells[i + j * _width].color;
 }
 
 int main()
 {
     const int grid_size{400};
-    const float cell_size{4.f};
+    // const float cell_size{4.f};
 
-    Grid grid(grid_size / cell_size, cell_size);
+    Grid grid(100, 100, sf::Vector2u(4, 4));
 
     sf::RenderWindow window(sf::VideoMode(grid_size, grid_size), "Langton's ant");
 
     grid.toggle(0, 0);
     grid.toggle(2, 0);
     grid.toggle(2, 2);
+    grid.toggle(25, 25);
+    grid.toggle(99, 99);
     while (window.isOpen())
     {
         sf::Event event;
@@ -68,7 +88,7 @@ int main()
         }
 
         window.clear(sf::Color::White);
-        grid.draw(window);
+        window.draw(grid);
         window.display();
     }
 
