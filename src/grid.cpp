@@ -29,9 +29,9 @@ void Grid::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(_cells, states);
 }
 
-void Grid::toggle(unsigned int i, unsigned int j)
+void Grid::toggle(sf::Vector2u pos)
 {
-    sf::Vertex *quad = &_cells[(i + j * _width) * 4];
+    sf::Vertex *quad = &_cells[(pos.x + pos.y * _width) * 4];
     sf::Color new_color =
         quad[0].color == sf::Color::White ? sf::Color::Black : sf::Color::White;
 
@@ -39,7 +39,9 @@ void Grid::toggle(unsigned int i, unsigned int j)
         quad[i].color = new_color;
 }
 
-sf::Color Grid::getColor(unsigned int i, unsigned int j) const
+sf::Color Grid::getColor(sf::Vector2u pos) const
 {
-    return _cells[i + j * _width].color;
+    sf::Vertex const *quad = &_cells[(pos.x + pos.y * _width) * 4];
+
+    return quad[0].color;
 }

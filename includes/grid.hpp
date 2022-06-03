@@ -8,10 +8,10 @@ class Grid : public sf::Drawable, public sf::Transformable
 public:
     Grid(unsigned int width, unsigned int height, sf::Vector2u cellSize);
 
-    // toggle cell color at position (i,j)
-    void toggle(unsigned int i, unsigned int j);
+    // toggle cell color at position pos
+    void toggle(sf::Vector2u pos);
     // get color of the cell
-    sf::Color getColor(unsigned int i, unsigned int j) const;
+    sf::Color getColor(sf::Vector2u) const;
 
 private:
     // draw the grid

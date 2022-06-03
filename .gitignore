@@ -1,5 +1,4 @@
 langton-ant
-
 obj/
-
 *.sw*
+.vscode/

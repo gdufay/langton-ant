@@ -4,11 +4,11 @@ NAME = langton-ant
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 INCDIR = includes
-_INCLUDES = grid.hpp
+_INCLUDES = grid.hpp ant.hpp
 INCLUDES = $(patsubst %,$(INCDIR)/%,$(_INCLUDES))
 
 SRCDIR = src
-_SRC = main.cpp grid.cpp
+_SRC = main.cpp grid.cpp ant.cpp
 SRC = $(patsubst %,$(SRCDIR)/%,$(_SRC))
 
 OBJDIR = obj
