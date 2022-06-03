@@ -1,3 +1,5 @@
 langton-ant
 
 obj/
+
+*.sw*
