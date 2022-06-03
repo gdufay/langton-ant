@@ -124,13 +124,13 @@ Project Link: [https://github.com/gdufay/langton-ant](https://github.com/gdufay/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/gdufay/langton-ant.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/gdufay/langton-ant.svg
 [contributors-url]: https://github.com/gdufay/langton-ant/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/gdufay/langton-ant.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/gdufay/langton-ant.svg
 [forks-url]: https://github.com/gdufay/langton-ant/network/members
-[stars-shield]: https://img.shields.io/github/stars/gdufay/langton-ant.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/gdufay/langton-ant.svg
 [stars-url]: https://github.com/gdufay/langton-ant/stargazers
-[issues-shield]: https://img.shields.io/github/issues/gdufay/langton-ant.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/gdufay/langton-ant.svg
 [issues-url]: https://github.com/gdufay/langton-ant/issues
-[license-shield]: https://img.shields.io/github/license/gdufay/langton-ant.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/gdufay/langton-ant.svg
 [license-url]: https://github.com/gdufay/langton-ant/blob/master/LICENSE.txt
